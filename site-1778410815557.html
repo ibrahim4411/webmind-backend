@@ -1,0 +1,297 @@
+<html>
+<head>
+  <title> ✂️ Barbería La Estación</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to right, #ff9900, #ffa07a);
+      padding: 1em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+    .nav-bar a {
+      color: #fff;
+      text-decoration: none;
+      margin-right: 20px;
+    }
+    .nav-bar a:hover {
+      color: #ccc;
+    }
+    .logo {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .hero {
+      background: linear-gradient(to bottom, #ff9900, #ffa07a);
+      padding: 10em 2em;
+      text-align: center;
+      color: #fff;
+    }
+    .hero h1 {
+      font-size: 3em;
+      font-weight: 800;
+      margin-bottom: 0.5em;
+    }
+    .hero p {
+      font-size: 1.2em;
+      margin-bottom: 1em;
+    }
+    .cta-btn {
+      background: #fff;
+      color: #ff9900;
+      border: none;
+      padding: 1em 2em;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .cta-btn:hover {
+      background: #ccc;
+    }
+    .services {
+      padding: 5em 2em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .service {
+      background: #f7f7f7;
+      padding: 2em;
+      margin: 1em;
+      width: calc(33.33% - 2em);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    .service h2 {
+      font-size: 1.5em;
+      font-weight: 600;
+      margin-bottom: 0.5em;
+    }
+    .pricing {
+      padding: 5em 2em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tier {
+      background: #f7f7f7;
+      padding: 2em;
+      margin: 1em;
+      width: calc(33.33% - 2em);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    .tier h2 {
+      font-size: 1.5em;
+      font-weight: 600;
+      margin-bottom: 0.5em;
+    }
+    .testimonials {
+      padding: 5em 2em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .testimonial {
+      background: #f7f7f7;
+      padding: 2em;
+      margin: 1em;
+      width: calc(33.33% - 2em);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    .testimonial p {
+      font-size: 1em;
+      margin-bottom: 1em;
+    }
+    .contact {
+      padding: 5em 2em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .form {
+      background: #f7f7f7;
+      padding: 2em;
+      margin: 1em;
+      width: calc(50% - 2em);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    .form label {
+      display: block;
+      margin-bottom: 0.5em;
+    }
+    .form input {
+      width: 100%;
+      padding: 1em;
+      margin-bottom: 1em;
+      border: none;
+      border-radius: 10px;
+    }
+    .form textarea {
+      width: 100%;
+      padding: 1em;
+      margin-bottom: 1em;
+      border: none;
+      border-radius: 10px;
+    }
+    .form button {
+      background: #ff9900;
+      color: #fff;
+      border: none;
+      padding: 1em 2em;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .form button:hover {
+      background: #ffa07a;
+    }
+    .footer {
+      background: linear-gradient(to bottom, #ff9900, #ffa07a);
+      padding: 2em;
+      text-align: center;
+      color: #fff;
+    }
+    @media only screen and (max-width: 768px) {
+      .nav-bar {
+        flex-direction: column;
+        align-items: center;
+      }
+      .nav-bar a {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+      .hero {
+        padding: 5em 1em;
+      }
+      .hero h1 {
+        font-size: 2em;
+      }
+      .services {
+        padding: 2em 1em;
+      }
+      .service {
+        width: calc(50% - 1em);
+      }
+      .pricing {
+        padding: 2em 1em;
+      }
+      .tier {
+        width: calc(50% - 1em);
+      }
+      .testimonials {
+        padding: 2em 1em;
+      }
+      .testimonial {
+        width: calc(50% - 1em);
+      }
+      .contact {
+        padding: 2em 1em;
+      }
+      .form {
+        width: calc(100% - 1em);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-bar">
+    <a class="logo">Barbería La Estación</a>
+    <a href="#hero">Inicio</a>
+    <a href="#services">Servicios</a>
+    <a href="#pricing">Precios</a>
+    <a href="#testimonials">Testimonios</a>
+    <a href="#contact">Contacto</a>
+  </div>
+  <div id="hero" class="hero">
+    <h1>¡Bienvenido a Barbería La Estación!</h1>
+    <p>Somos un equipo de profesionales dedicados a brindarle el mejor servicio de barbería en Madrid.</p>
+    <button class="cta-btn">Reserva ahora</button>
+    <button class="cta-btn">Más información</button>
+  </div>
+  <div id="services" class="services">
+    <div class="service">
+      <h2>Corte de pelo</h2>
+      <p>Nuestros expertos barberos le ofrecen un corte de pelo personalizado y de alta calidad.</p>
+    </div>
+    <div class="service">
+      <h2>Afeitado</h2>
+      <p>Disfrute de un afeitado suave y relajante con nuestros productos de alta calidad.</p>
+    </div>
+    <div class="service">
+      <h2>Peinado</h2>
+      <p>Nuestros estilistas le ayudan a encontrar el peinado perfecto para cualquier ocasión.</p>
+    </div>
+    <div class="service">
+      <h2>Tratamientos faciales</h2>
+      <p>Relájese con nuestros tratamientos faciales personalizados y de alta calidad.</p>
+    </div>
+  </div>
+  <div id="pricing" class="pricing">
+    <div class="tier">
+      <h2>Básico</h2>
+      <p>€20</p>
+      <p>Corte de pelo y afeitado</p>
+    </div>
+    <div class="tier">
+      <h2>Premium</h2>
+      <p>€40</p>
+      <p>Corte de pelo, afeitado y peinado</p>
+    </div>
+    <div class="tier">
+      <h2>Élite</h2>
+      <p>€60</p>
+      <p>Corte de pelo, afeitado, peinado y tratamiento facial</p>
+    </div>
+  </div>
+  <div id="testimonials" class="testimonials">
+    <div class="testimonial">
+      <p>Me encanta venir a Barbería La Estación. El servicio es excelente y los precios son razonables.</p>
+      <p>- Juan, Madrid</p>
+    </div>
+    <div class="testimonial">
+      <p>El corte de pelo que me dieron fue perfecto. Me sentiré como un rey.</p>
+      <p>- Carlos, Madrid</p>
+    </div>
+    <div class="testimonial">
+      <p>La barbería es muy agradable y los barberos son muy amables. Me volveré a ir.</p>
+      <p>- María, Madrid</p>
+    </div>
+  </div>
+  <div id="contact" class="contact">
+    <div class="form">
+      <h2>Contáctanos</h2>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email">
+      <label for="mensaje">Mensaje:</label>
+      <textarea id="mensaje" name="mensaje"></textarea>
+      <button>Enviar</button>
+    </div>
+  </div>
+  <div class="footer">
+    <p>Barbería La Estación - Calle de la Estación, 12, 28001 Madrid - 913 45 67 89 - <a href="mailto:info@barberialaestacion.com">info@barberialaestacion.com</a></p>
+  </div>
+  <script>
+    const form = document.querySelector('.form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Gracias por contactarnos. Su mensaje ha sido enviado.');
+    });
+  </script>
+</body>
+</html>

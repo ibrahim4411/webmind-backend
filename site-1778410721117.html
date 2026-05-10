@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barbería El Clásico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0a0a0f;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #0a0a0f;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+    .navbar .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #a8ff57;
+    }
+    .navbar .menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+    .navbar .menu li {
+      margin-right: 20px;
+    }
+    .navbar .menu a {
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+    .navbar .menu a:hover {
+      color: #a8ff57;
+    }
+    .hero {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .hero .headline {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .hero .subheadline {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    .hero .cta {
+      background-color: #a8ff57;
+      color: #0a0a0f;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .hero .cta:hover {
+      background-color: #7bff3f;
+    }
+    .services {
+      padding: 50px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .service {
+      background-color: #1a1a1f;
+      padding: 20px;
+      margin: 10px;
+      width: calc(33.33% - 20px);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+    .service:hover {
+      transform: scale(1.05);
+    }
+    .service .title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .pricing {
+      padding: 50px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tier {
+      background-color: #1a1a1f;
+      padding: 20px;
+      margin: 10px;
+      width: calc(33.33% - 20px);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+    .tier:hover {
+      transform: scale(1.05);
+    }
+    .tier .title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .tier .price {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .testimonials {
+      padding: 50px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .testimonial {
+      background-color: #1a1a1f;
+      padding: 20px;
+      margin: 10px;
+      width: calc(33.33% - 20px);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+    .testimonial:hover {
+      transform: scale(1.05);
+    }
+    .testimonial .quote {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .contact {
+      padding: 50px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .contact input, .contact textarea {
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .contact button {
+      background-color: #a8ff57;
+      color: #0a0a0f;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .contact button:hover {
+      background-color: #7bff3f;
+    }
+    .footer {
+      padding: 20px;
+      background-color: #1a1a1f;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .service, .tier, .testimonial {
+        width: calc(50% - 20px);
+      }
+    }
+    @media (max-width: 480px) {
+      .service, .tier, .testimonial {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <span class="logo">Barbería El Clásico</span>
+    <ul class="menu">
+      <li><a href="#hero">Inicio</a></li>
+      <li><a href="#services">Servicios</a></li>
+      <li><a href="#pricing">Precios</a></li>
+      <li><a href="#testimonials">Testimonios</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+  </nav>
+  <section id="hero" class="hero">
+    <h1 class="headline">Barbería Clásica en Madrid</h1>
+    <p class="subheadline">Descubre la mejor experiencia de barbería en el corazón de Madrid</p>
+    <button class="cta">Reserva Ahora</button>
+    <button class="cta">Más Información</button>
+  </section>
+  <section id="services" class="services">
+    <div class="service">
+      <h2 class="title">Corte de Cabello</h2>
+      <p>Nuestros expertos barberos te ofrecen un corte de cabello personalizado y de alta calidad</p>
+    </div>
+    <div class="service">
+      <h2 class="title">Afeitado</h2>
+      <p>Disfruta de un afeitado relajante y refinado en nuestras instalaciones</p>
+    </div>
+    <div class="service">
+      <h2 class="title">Peinado</h2>
+      <p>Nuestros estilistas te ofrecen un peinado elegante y sofisticado para cualquier ocasión</p>
+    </div>
+  </section>
+  <section id="pricing" class="pricing">
+    <div class="tier">
+      <h2 class="title">Básico</h2>
+      <p>€20</p>
+      <p>Corte de cabello y afeitado</p>
+    </div>
+    <div class="tier">
+      <h2 class="title">Premium</h2>
+      <p>€40</p>
+      <p>Corte de cabello, afeitado y peinado</p>
+    </div>
+    <div class="tier">
+      <h2 class="title">VIP</h2>
+      <p>€60</p>
+      <p>Corte de cabello, afeitado, peinado y tratamiento de lujo</p>
+    </div>
+  </section>
+  <section id="testimonials" class="testimonials">
+    <div class="testimonial">
+      <p class="quote">Me encanta venir a esta barbería, siempre me tratan como a un rey</p>
+      <p>— Juan P.</p>
+    </div>
+    <div class="testimonial">
+      <p class="quote">El mejor corte de cabello que he tenido en mi vida, gracias a los expertos de Barbería El Clásico</p>
+      <p>— María G.</p>
+    </div>
+    <div class="testimonial">
+      <p class="quote">Me siento como en casa en esta barbería, el servicio es excelente y el ambiente es relajante</p>
+      <p>— Carlos M.</p>
+    </div>
+  </section>
+  <section id="contact" class="contact">
+    <h2>¿Quieres reservar una cita o tienes alguna pregunta?</h2>
+    <form>
+      <input type="text" placeholder="Nombre">
+      <input type="email" placeholder="Correo electrónico">
+      <input type="tel" placeholder="Teléfono">
+      <textarea placeholder="Mensaje"></textarea>
+      <button>Enviar</button>
+    </form>
+  </section>
+  <footer class="footer">
+    <p>Barbería El Clásico - Calle de la Luna, 12, 28004 Madrid - 912 345 678 - <a href="mailto:info@barberiaelclasico.com">info@barberiaelclasico.com</a></p>
+  </footer>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const button = document.querySelector(".contact button");
+      button.addEventListener("click", function(event) {
+        event.preventDefault();
+        alert("¡Gracias por contactarnos! Nos pondremos en contacto contigo pronto.");
+      });
+    });
+  </script>
+</body>
+</html>

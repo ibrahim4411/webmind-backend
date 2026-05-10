@@ -1,0 +1,268 @@
+<html>
+<head>
+	<title>Pizzería El Fuego</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Great+Vibes&display=swap');
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #0a0a0f;
+			color: white;
+			font-family: 'Montserrat', sans-serif;
+		}
+		nav {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			background-color: #0a0a0f;
+			padding: 1em;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			z-index: 1;
+		}
+		nav ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+		}
+		nav li {
+			margin-right: 20px;
+		}
+		nav a {
+			color: white;
+			text-decoration: none;
+			transition: color 0.2s ease;
+		}
+		nav a:hover {
+			color: #a8ff57;
+		}
+		.logo {
+			font-size: 24px;
+			font-family: 'Great Vibes', cursive;
+			margin-right: 20px;
+		}
+		.hero {
+			height: 100vh;
+			background-image: linear-gradient(to bottom, #0a0a0f, #0a0a0f), url('https://via.placeholder.com/1920x1080');
+			background-size: cover;
+			background-position: center;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+		.hero h1 {
+			font-size: 48px;
+			margin-bottom: 10px;
+		}
+		.hero p {
+			font-size: 18px;
+			margin-bottom: 20px;
+		}
+		.cta {
+			background-color: #a8ff57;
+			color: #0a0a0f;
+			border: none;
+			padding: 10px 20px;
+			font-size: 18px;
+			cursor: pointer;
+			transition: background-color 0.2s ease;
+		}
+		.cta:hover {
+			background-color: #7cff3d;
+		}
+		.services {
+			padding: 2em;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+		.service {
+			background-color: #14141f;
+			padding: 1em;
+			margin: 10px;
+			border-radius: 10px;
+			width: calc(33.33% - 20px);
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		}
+		.service h2 {
+			font-size: 24px;
+			margin-bottom: 10px;
+		}
+		.service p {
+			font-size: 18px;
+		}
+		.pricing {
+			padding: 2em;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+		.pricing-tier {
+			background-color: #14141f;
+			padding: 1em;
+			margin: 10px;
+			border-radius: 10px;
+			width: calc(33.33% - 20px);
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		}
+		.pricing-tier h2 {
+			font-size: 24px;
+			margin-bottom: 10px;
+		}
+		.pricing-tier p {
+			font-size: 18px;
+		}
+		.testimonials {
+			padding: 2em;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+		.testimonial {
+			background-color: #14141f;
+			padding: 1em;
+			margin: 10px;
+			border-radius: 10px;
+			width: calc(33.33% - 20px);
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		}
+		.testimonial p {
+			font-size: 18px;
+		}
+		.contact {
+			padding: 2em;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.contact input, .contact textarea {
+			padding: 10px;
+			margin-bottom: 10px;
+			border: none;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		}
+		.contact button {
+			background-color: #a8ff57;
+			color: #0a0a0f;
+			border: none;
+			padding: 10px 20px;
+			font-size: 18px;
+			cursor: pointer;
+			transition: background-color 0.2s ease;
+		}
+		.contact button:hover {
+			background-color: #7cff3d;
+		}
+		footer {
+			background-color: #0a0a0f;
+			padding: 1em;
+			text-align: center;
+		}
+		@media only screen and (max-width: 768px) {
+			.services {
+				flex-direction: column;
+			}
+			.service {
+				width: 100%;
+				margin-bottom: 20px;
+			}
+			.pricing {
+				flex-direction: column;
+			}
+			.pricing-tier {
+				width: 100%;
+				margin-bottom: 20px;
+			}
+			.testimonials {
+				flex-direction: column;
+			}
+			.testimonial {
+				width: 100%;
+				margin-bottom: 20px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<nav>
+		<span class="logo">Pizzería El Fuego</span>
+		<ul>
+			<li><a href="#hero">Inicio</a></li>
+			<li><a href="#services">Servicios</a></li>
+			<li><a href="#pricing">Precios</a></li>
+			<li><a href="#testimonials">Testimonios</a></li>
+			<li><a href="#contact">Contacto</a></li>
+		</ul>
+	</nav>
+	<section id="hero" class="hero">
+		<h1>Pizzería artesanal en Barcelona</h1>
+		<p>Disfruta de nuestras deliciosas pizzas hechas con amor y dedicación</p>
+		<button class="cta">Pedir ahora</button>
+		<button class="cta">Ver más</button>
+	</section>
+	<section id="services" class="services">
+		<div class="service">
+			<h2>Pizzas clásicas</h2>
+			<p>Nuestras pizzas clásicas son hechas con los ingredientes más frescos y de alta calidad</p>
+		</div>
+		<div class="service">
+			<h2>Pizzas gourmet</h2>
+			<p>Nuestras pizzas gourmet son una experiencia gastronómica única y excitante</p>
+		</div>
+		<div class="service">
+			<h2>Postres</h2>
+			<p>Nuestros postres son la perfecta combinación de dulzura y sabor</p>
+		</div>
+	</section>
+	<section id="pricing" class="pricing">
+		<div class="pricing-tier">
+			<h2>Pizza individual</h2>
+			<p>10€</p>
+		</div>
+		<div class="pricing-tier">
+			<h2>Pizza familiar</h2>
+			<p>20€</p>
+		</div>
+		<div class="pricing-tier">
+			<h2>Pizza grande</h2>
+			<p>30€</p>
+		</div>
+	</section>
+	<section id="testimonials" class="testimonials">
+		<div class="testimonial">
+			<p>Me encanta la pizza de Pizzería El Fuego, es la mejor que he probado en Barcelona</p>
+			<p>- Juan Pérez, Barcelona</p>
+		</div>
+		<div class="testimonial">
+			<p>La atención al cliente es excelente, siempre son amables y atentos</p>
+			<p>- María Rodríguez, Madrid</p>
+		</div>
+		<div class="testimonial">
+			<p>Me gustan mucho las opciones vegetarianas y veganas que ofrecen</p>
+			<p>- Carlos López, Valencia</p>
+		</div>
+	</section>
+	<section id="contact" class="contact">
+		<input type="text" placeholder="Nombre">
+		<input type="email" placeholder="Correo electrónico">
+		<textarea placeholder="Mensaje"></textarea>
+		<button>Enviar</button>
+	</section>
+	<footer>
+		<p>Pizzería El Fuego - Calle del Carmen, 12, 08002 Barcelona - 932 12 34 56</p>
+	</footer>
+	<script>
+		const form = document.querySelector('form');
+		const button = document.querySelector('button');
+		button.addEventListener('click', (e) => {
+			e.preventDefault();
+			alert('Gracias por contactarnos, nos pondremos en contacto contigo pronto');
+		});
+	</script>
+</body>
+</html>
