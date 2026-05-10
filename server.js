@@ -15,7 +15,9 @@ app.use(cors());
 
 // ── Carpeta donde se guardan las webs generadas ──
 const SITES_DIR = path.join(__dirname, 'generated');
-if (!fs.existsSync(SITES_DIR)) fs.mkdirSync(SITES_DIR);
+if (!fs.existsSync(SITES_DIR)) {
+  fs.mkdirSync(SITES_DIR);
+}
 
 // ── Servir webs generadas como URLs públicas ──
 app.use('/sites', express.static(SITES_DIR));
@@ -36,69 +38,62 @@ app.get('/api/sites', (req, res) => {
         created: fs.statSync(path.join(SITES_DIR, f)).mtime
       }))
       .sort((a, b) => new Date(b.created) - new Date(a.created));
+
     res.json({ sites: files });
   } catch (e) {
     res.json({ sites: [] });
   }
 });
 
-// ── Genera web con IA (Groq — gratis) ──
+// ── Genera web con IA (Groq) ──
 app.post('/api/generate-web', async (req, res) => {
   const { idea, style } = req.body;
 
-  if (!idea) return res.status(400).json({ error: 'Falta el campo "idea"' });
+  if (!idea) {
+    return res.status(400).json({ error: 'Falta el campo idea' });
+  }
 
   const styleGuide = {
-    'Oscuro':      'dark theme, black backgrounds (#0a0a0f), neon accent green (#a8ff57), white text',
-    'Claro':       'light clean theme, white backgrounds, dark text, subtle elegant accents',
-    'Colorido':    'vibrant colorful theme, bold gradients, multiple accent colors, energetic modern feel',
-    'Minimalista': 'ultra-minimal, generous whitespace, 1-2 colors max, refined elegant typography'
+    Oscuro: 'dark theme, black backgrounds (#0a0a0f), neon green accents',
+    Claro: 'white clean theme, elegant minimal design',
+    Colorido: 'vibrant gradients, modern energetic style',
+    Minimalista: 'ultra clean, lots of whitespace, simple typography'
   };
 
-  const prompt = `You are a world-class professional web developer and copywriter. Create a complete, stunning, production-ready single-page HTML website for this business: "${idea}"
+  const prompt = `
+Create a professional, production-ready single HTML website.
 
-Visual style: ${styleGuide[style] || styleGuide['Oscuro']}
+Business: "${idea}"
+Style: ${styleGuide[style] || styleGuide.Oscuro}
 
-STRICT REQUIREMENTS:
-- ONE complete HTML file with ALL CSS in <style> tag and ALL JS before </body>
-- Google Fonts import (choose fonts that match the business)
-- NO external JS libraries except Google Fonts
-- Fully responsive mobile-first design with media queries
+REQUIREMENTS:
+- Single HTML file
+- Internal CSS only
+- Internal JS only
+- Responsive design
+- Spanish content
+- Sections: hero, services, pricing, testimonials, contact, footer
+- Professional agency quality
 
-REQUIRED SECTIONS:
-1. Fixed navigation bar with logo and menu links
-2. Hero section with headline, subheadline, CTA buttons
-3. Services section with 3-4 services
-4. Pricing section with 3 tiers in euros
-5. Testimonials with 3 realistic reviews
-6. Contact form with JS fake submit
-7. Footer
-
-RULES:
-- Invent a realistic Spanish business name
-- Write ALL text in Spanish
-- Use Spanish addresses and phone numbers
-- Add hover animations and fade-in on load
-- Must look like a professional €3000 agency website
-
-Return ONLY raw HTML. No markdown, no explanation, no code fences.`;
+Return ONLY HTML.
+`;
 
   try {
     const response = await axios.post(
       'https://api.groq.com/openai/v1/chat/completions',
       {
         model: 'llama-3.3-70b-versatile',
-        max_tokens: 8000,
         messages: [
           {
             role: 'system',
-            content: 'You are a professional web developer. Always return only raw HTML code, never markdown or explanations.'
+            content: 'Return only clean HTML code. No explanations.'
           },
           {
             role: 'user',
             content: prompt
           }
-        ]
+        ],
+        max_tokens: 8000
       },
       {
         headers: {
@@ -109,30 +104,38 @@ Return ONLY raw HTML. No markdown, no explanation, no code fences.`;
       }
     );
 
-    // Extraer HTML
-    let html = response.data.choices[0].message.content;
-    html = html.replace(/^```html\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/, '').trim();
+    let html = response.data.choices[0].message.content || '';
 
-    // Guardar en disco
+    // limpiar posibles fences
+    html = html
+      .replace(/```html/g, '')
+      .replace(/```/g, '')
+      .trim();
+
     const siteId = 'site-' + Date.now();
     const filePath = path.join(SITES_DIR, `${siteId}.html`);
+
     fs.writeFileSync(filePath, html, 'utf8');
-    console.log(`✅ Web guardada: ${siteId}`);
 
     const baseUrl = process.env.BASE_URL || `http://localhost:${PORT}`;
+
     res.json({
-      html,
       siteId,
+      html,
       publicUrl: `${baseUrl}/sites/${siteId}.html`
     });
 
   } catch (error) {
-    const detail = error.response?.data || error.message;
-    console.error('❌ ERROR IA:', detail);
-    res.status(500).json({ error: 'Error generando la web', detail });
+    console.error('❌ ERROR IA:', error.response?.data || error.message);
+
+    res.status(500).json({
+      error: 'Error generando la web',
+      detail: error.response?.data || error.message
+    });
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`✅ WebMind Backend corriendo en http://localhost:${PORT}`);
+// ── START SERVER (FIX PRODUCCIÓN) ──
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ WebMind Backend corriendo en puerto ${PORT}`);
 });
