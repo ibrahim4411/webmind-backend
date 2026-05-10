@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebMind AI — Crea tu web en segundos</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0c0c0e;
+  --surface: #141416;
+  --surface2: #1c1c1f;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.1);
+  --text: #e8e8e6;
+  --text2: #8a8a90;
+  --text3: #555558;
+  --accent: #7c6dfa;
+  --accent-hover: #9384fb;
+  --accent-glow: rgba(124,109,250,0.15);
+  --green: #4ade80;
+  --red: #f87171;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans: 'Geist', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: flex; flex-direction: column; min-height: 100vh; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem;
+  background: rgba(12,12,14,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid var(--border);
+}
+.logo {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  color: var(--text);
+  cursor: pointer;
+  letter-spacing: -0.01em;
+}
+.logo em { font-style: italic; color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 0.5rem; }
+.nav-link {
+  background: none; border: none;
+  color: var(--text2); font-family: var(--sans); font-size: 0.85rem;
+  padding: 0.4rem 0.75rem; border-radius: 6px; cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+.nav-link:hover { color: var(--text); background: var(--surface2); }
+.nav-link.active { color: var(--text); }
+.nav-btn {
+  background: var(--accent); color: #fff;
+  border: none; padding: 0.45rem 1rem;
+  border-radius: 6px; font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+  cursor: pointer; transition: background 0.15s, transform 0.1s;
+}
+.nav-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+/* ══════════════════════════
+   LANDING
+══════════════════════════ */
+#page-landing { padding-top: 56px; }
+
+/* HERO */
+.hero {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(124,109,250,0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--surface2); border: 0.5px solid var(--border2);
+  color: var(--text2); font-size: 0.78rem;
+  padding: 0.3rem 0.85rem; border-radius: 100px;
+  margin-bottom: 2rem;
+  animation: fadeUp 0.5s ease both;
+}
+.hero-eyebrow span { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  max-width: 750px;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.5s 0.05s ease both;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero-sub {
+  font-size: 1rem; color: var(--text2); max-width: 440px;
+  line-height: 1.65; margin-bottom: 2.5rem;
+  animation: fadeUp 0.5s 0.1s ease both;
+}
+.hero-actions {
+  display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
+  animation: fadeUp 0.5s 0.15s ease both;
+}
+.btn-primary {
+  background: var(--accent); color: #fff;
+  border: none; padding: 0.7rem 1.5rem;
+  border-radius: 8px; font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+  cursor: pointer; transition: background 0.15s, transform 0.1s, box-shadow 0.2s;
+}
+.btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(124,109,250,0.25); }
+.btn-secondary {
+  background: var(--surface2); color: var(--text);
+  border: 0.5px solid var(--border2); padding: 0.7rem 1.5rem;
+  border-radius: 8px; font-family: var(--sans); font-size: 0.9rem; font-weight: 400;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18); }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+/* SOCIAL PROOF */
+.social-proof {
+  padding: 3rem 2rem;
+  text-align: center;
+  border-top: 0.5px solid var(--border);
+}
+.social-proof p { font-size: 0.8rem; color: var(--text3); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.avatars { display: flex; align-items: center; justify-content: center; gap: 0; }
+.avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 2px solid var(--bg);
+  margin-left: -8px; first-child { margin-left: 0; }
+  font-size: 0.7rem; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+}
+.social-proof-text { font-size: 0.85rem; color: var(--text2); margin-left: 0.75rem; }
+.social-proof-text strong { color: var(--text); }
+
+/* HOW IT WORKS */
+.section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; width: 100%; }
+.section-label { font-size: 0.73rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+.section-title { font-family: var(--serif); font-size: clamp(1.8rem,3.5vw,2.8rem); font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+.section-sub { color: var(--text2); max-width: 440px; font-size: 0.95rem; line-height: 1.65; margin-bottom: 3rem; }
+
+.steps-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden; }
+.step-item {
+  background: var(--surface); padding: 2rem;
+  transition: background 0.2s;
+}
+.step-item:hover { background: var(--surface2); }
+.step-num { font-family: var(--serif); font-size: 2.5rem; color: var(--accent); opacity: 0.4; line-height: 1; margin-bottom: 1rem; }
+.step-title { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.5rem; }
+.step-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.65; }
+
+/* FEATURES */
+.features-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
+.feature-card {
+  background: var(--surface); border: 0.5px solid var(--border);
+  border-radius: 10px; padding: 1.5rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+.feature-card:hover { border-color: var(--border2); background: var(--surface2); }
+.feature-icon { font-size: 1.3rem; margin-bottom: 0.75rem; }
+.feature-title { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.4rem; }
+.feature-desc { font-size: 0.83rem; color: var(--text2); line-height: 1.6; }
+
+/* PRICING */
+.pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+.price-card {
+  background: var(--surface); border: 0.5px solid var(--border);
+  border-radius: 12px; padding: 1.75rem;
+  transition: border-color 0.2s;
+}
+.price-card.popular {
+  background: var(--surface2); border-color: var(--accent);
+  position: relative;
+}
+.popular-badge {
+  position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+  background: var(--accent); color: #fff;
+  font-size: 0.72rem; font-weight: 500; padding: 0.2rem 0.75rem;
+  border-radius: 0 0 6px 6px;
+}
+.price-name { font-size: 0.8rem; font-weight: 500; color: var(--text2); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.price-amount { font-family: var(--serif); font-size: 2.8rem; line-height: 1; margin-bottom: 0.25rem; }
+.price-period { font-size: 0.8rem; color: var(--text2); margin-bottom: 1.5rem; }
+.price-features { list-style: none; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.price-features li { font-size: 0.85rem; color: var(--text2); display: flex; align-items: center; gap: 0.5rem; }
+.price-features li::before { content: '✓'; color: var(--green); font-size: 0.78rem; font-weight: 600; flex-shrink: 0; }
+.price-btn {
+  width: 100%; padding: 0.65rem; border-radius: 7px;
+  font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+  cursor: pointer; transition: all 0.15s;
+}
+.price-card:not(.popular) .price-btn { background: var(--surface2); border: 0.5px solid var(--border2); color: var(--text); }
+.price-card:not(.popular) .price-btn:hover { background: rgba(255,255,255,0.06); }
+.price-card.popular .price-btn { background: var(--accent); border: none; color: #fff; }
+.price-card.popular .price-btn:hover { background: var(--accent-hover); }
+
+/* TESTIMONIALS */
+.testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+.testi-card {
+  background: var(--surface); border: 0.5px solid var(--border);
+  border-radius: 10px; padding: 1.5rem;
+}
+.testi-stars { color: #fbbf24; font-size: 0.8rem; margin-bottom: 0.75rem; }
+.testi-text { font-size: 0.88rem; color: var(--text2); line-height: 1.65; font-style: italic; margin-bottom: 1.25rem; }
+.testi-author { display: flex; align-items: center; gap: 0.6rem; }
+.testi-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-glow); border: 0.5px solid rgba(124,109,250,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 600; color: var(--accent); flex-shrink: 0; }
+.testi-name { font-size: 0.85rem; font-weight: 500; }
+.testi-biz { font-size: 0.78rem; color: var(--text3); }
+
+/* CTA SECTION */
+.cta-section {
+  margin: 0 2rem 4rem;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 16px; padding: 4rem 2rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 50% 100%, rgba(124,109,250,0.08) 0%, transparent 70%);
+}
+.cta-section > * { position: relative; }
+.cta-title { font-family: var(--serif); font-size: clamp(1.8rem,4vw,3rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.75rem; }
+.cta-sub { color: var(--text2); font-size: 0.95rem; margin-bottom: 2rem; }
+
+/* FOOTER */
+footer {
+  padding: 2rem;
+  border-top: 0.5px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo { font-family: var(--serif); font-size: 1.1rem; }
+.footer-logo em { font-style: italic; color: var(--accent); }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { color: var(--text3); text-decoration: none; font-size: 0.82rem; transition: color 0.15s; }
+.footer-links a:hover { color: var(--text2); }
+.footer-copy { font-size: 0.78rem; color: var(--text3); }
+
+/* ══════════════════════════
+   APP PAGE
+══════════════════════════ */
+#page-app {
+  padding-top: 56px;
+  display: none;
+  flex-direction: column;
+}
+#page-app.active { display: flex; }
+
+.app-layout {
+  flex: 1; display: grid;
+  grid-template-columns: 320px 1fr;
+  height: calc(100vh - 56px);
+}
+
+/* SIDEBAR */
+.sidebar {
+  border-right: 0.5px solid var(--border);
+  background: var(--surface);
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+}
+.sidebar-header {
+  padding: 1.25rem 1.25rem 0;
+  border-bottom: 0.5px solid var(--border);
+  padding-bottom: 1.25rem;
+}
+.sidebar-header h2 { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; margin-bottom: 0.25rem; }
+.sidebar-header p { font-size: 0.8rem; color: var(--text2); }
+
+.sidebar-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 1.25rem; flex: 1; }
+
+.field-label { font-size: 0.73rem; font-weight: 500; color: var(--text2); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+
+.idea-textarea {
+  width: 100%; min-height: 100px;
+  background: var(--bg); border: 0.5px solid var(--border2);
+  border-radius: 8px; padding: 0.85rem;
+  font-family: var(--sans); font-size: 0.88rem; color: var(--text);
+  resize: vertical; outline: none; transition: border-color 0.15s; line-height: 1.6;
+}
+.idea-textarea::placeholder { color: var(--text3); }
+.idea-textarea:focus { border-color: rgba(124,109,250,0.4); }
+
+/* EXAMPLES */
+.examples { display: flex; flex-direction: column; gap: 0.35rem; }
+.eg {
+  background: none; border: 0.5px solid var(--border);
+  border-radius: 6px; padding: 0.5rem 0.75rem;
+  font-family: var(--sans); font-size: 0.8rem; color: var(--text2);
+  text-align: left; cursor: pointer;
+  transition: all 0.15s;
+}
+.eg:hover { border-color: rgba(124,109,250,0.3); color: var(--text); background: rgba(124,109,250,0.05); }
+
+/* STYLE PICKER */
+.style-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem; }
+.style-opt {
+  background: none; border: 0.5px solid var(--border);
+  border-radius: 6px; padding: 0.5rem;
+  font-family: var(--sans); font-size: 0.8rem; color: var(--text2);
+  cursor: pointer; transition: all 0.15s; text-align: center;
+}
+.style-opt:hover { border-color: var(--border2); color: var(--text); }
+.style-opt.sel { border-color: rgba(124,109,250,0.5); color: var(--accent); background: rgba(124,109,250,0.06); }
+
+/* GENERATE BTN */
+.gen-btn {
+  width: 100%; padding: 0.8rem;
+  background: var(--accent); color: #fff;
+  border: none; border-radius: 8px;
+  font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+  cursor: pointer; transition: background 0.15s, transform 0.1s;
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+}
+.gen-btn:hover:not(:disabled) { background: var(--accent-hover); transform: translateY(-1px); }
+.gen-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* STATUS */
+.status-bar {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--bg); border: 0.5px solid var(--border);
+  border-radius: 6px; font-size: 0.78rem; color: var(--text2);
+}
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); flex-shrink: 0; transition: background 0.3s; }
+.status-dot.online { background: var(--green); animation: pulse 2s infinite; }
+.status-dot.offline { background: var(--red); }
+
+/* HISTORY */
+.history { display: flex; flex-direction: column; gap: 0.35rem; }
+.history-item {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.5rem 0.7rem;
+  background: var(--bg); border: 0.5px solid var(--border);
+  border-radius: 6px; cursor: pointer; transition: all 0.15s; font-size: 0.8rem;
+}
+.history-item:hover { border-color: var(--border2); background: var(--surface2); }
+.history-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+.history-text { color: var(--text2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* PREVIEW */
+.preview {
+  display: flex; flex-direction: column;
+  background: #05050a;
+  overflow: hidden;
+}
+
+/* TOOLBAR */
+.toolbar {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  background: var(--surface); border-bottom: 0.5px solid var(--border);
+  flex-shrink: 0;
+}
+.view-tabs { display: flex; background: var(--bg); border: 0.5px solid var(--border); border-radius: 6px; overflow: hidden; }
+.view-tab {
+  padding: 0.35rem 0.85rem; font-family: var(--sans); font-size: 0.78rem;
+  background: none; border: none; color: var(--text2); cursor: pointer;
+  transition: all 0.15s;
+}
+.view-tab.active { background: var(--surface2); color: var(--text); }
+.url-bar {
+  flex: 1; background: var(--bg); border: 0.5px solid var(--border);
+  border-radius: 6px; padding: 0.35rem 0.85rem;
+  font-size: 0.78rem; color: var(--text3);
+  display: flex; align-items: center; gap: 0.4rem; overflow: hidden;
+}
+.url-bar span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tb-btn {
+  padding: 0.35rem 0.85rem; border-radius: 6px;
+  font-family: var(--sans); font-size: 0.78rem; font-weight: 500;
+  cursor: pointer; transition: all 0.15s; white-space: nowrap;
+}
+.tb-btn.outline { background: none; border: 0.5px solid var(--border2); color: var(--text2); }
+.tb-btn.outline:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+.tb-btn.pub { background: var(--accent); border: none; color: #fff; }
+.tb-btn.pub:hover { background: var(--accent-hover); }
+.tb-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* STATES */
+.idle-state {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 1rem; text-align: center; padding: 2rem;
+  color: var(--text3);
+}
+.idle-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--surface); border: 0.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+}
+.idle-title { font-family: var(--serif); font-size: 1.3rem; color: var(--text2); }
+.idle-sub { font-size: 0.85rem; max-width: 300px; line-height: 1.6; }
+
+.loading-state {
+  flex: 1; display: none; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 1.5rem; padding: 2rem;
+}
+.loading-state.show { display: flex; }
+.spinner { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--border2); border-top-color: var(--accent); animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-steps { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; max-width: 320px; }
+.lstep {
+  display: flex; align-items: center; gap: 0.65rem;
+  padding: 0.6rem 0.9rem;
+  background: var(--surface); border: 0.5px solid var(--border);
+  border-radius: 8px; font-size: 0.82rem; color: var(--text3);
+  transition: all 0.3s;
+}
+.lstep.active { border-color: rgba(124,109,250,0.3); color: var(--text); background: rgba(124,109,250,0.05); }
+.lstep.done { border-color: rgba(74,222,128,0.2); color: var(--text2); }
+.lstep-icon {
+  width: 18px; height: 18px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; flex-shrink: 0;
+  background: var(--surface2); color: var(--text3);
+  transition: all 0.3s;
+}
+.lstep.active .lstep-icon { background: var(--accent); color: #fff; }
+.lstep.done .lstep-icon { background: var(--green); color: #fff; }
+
+/* FRAME */
+.frame-wrap { flex: 1; display: none; }
+.frame-wrap.show { display: block; }
+#preview-frame { width: 100%; height: 100%; border: none; background: #fff; display: block; }
+
+/* MOBILE */
+.mobile-wrap { flex: 1; display: none; align-items: center; justify-content: center; padding: 1.5rem; }
+.mobile-wrap.show { display: flex; }
+.mobile-shell { width: 375px; height: 680px; border: 1.5px solid rgba(255,255,255,0.1); border-radius: 32px; overflow: hidden; box-shadow: 0 32px 80px rgba(0,0,0,0.7); position: relative; }
+.mobile-notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 24px; background: var(--bg); border-radius: 0 0 14px 14px; z-index: 10; }
+#preview-frame-m { width: 100%; height: 100%; border: none; background: #fff; }
+
+/* CODE */
+.code-wrap { flex: 1; display: none; overflow: auto; }
+.code-wrap.show { display: block; }
+.code-wrap pre { padding: 1.25rem; font-size: 0.72rem; line-height: 1.7; color: rgba(240,239,232,0.6); font-family: 'Courier New', monospace; white-space: pre-wrap; word-break: break-all; }
+
+/* PUBLIC URL BANNER */
+.pub-banner {
+  display: none; align-items: center; gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  background: rgba(74,222,128,0.06); border-bottom: 0.5px solid rgba(74,222,128,0.15);
+  font-size: 0.8rem;
+}
+.pub-banner.show { display: flex; }
+.pub-banner .pub-label { color: var(--green); font-weight: 500; flex-shrink: 0; }
+.pub-banner .pub-url { color: var(--text2); font-family: monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.pub-banner .pub-copy {
+  background: none; border: 0.5px solid rgba(74,222,128,0.3);
+  color: var(--green); border-radius: 4px; padding: 0.2rem 0.6rem;
+  font-size: 0.75rem; cursor: pointer; transition: background 0.15s; flex-shrink: 0;
+}
+.pub-banner .pub-copy:hover { background: rgba(74,222,128,0.08); }
+
+/* MODAL */
+.modal-overlay { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); align-items: center; justify-content: center; }
+.modal-overlay.show { display: flex; }
+.modal { background: var(--surface); border: 0.5px solid var(--border2); border-radius: 14px; padding: 2rem; max-width: 420px; width: 90%; animation: fadeUp 0.25s ease; }
+.modal h2 { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; margin-bottom: 0.5rem; }
+.modal p { color: var(--text2); font-size: 0.85rem; margin-bottom: 1.25rem; line-height: 1.6; }
+.modal-url { background: var(--bg); border: 0.5px solid rgba(74,222,128,0.25); border-radius: 8px; padding: 0.85rem 1rem; font-family: monospace; font-size: 0.8rem; color: var(--green); margin-bottom: 1.25rem; word-break: break-all; }
+.modal-actions { display: flex; gap: 0.6rem; }
+.modal-close { flex: 1; padding: 0.65rem; background: none; border: 0.5px solid var(--border2); border-radius: 7px; font-family: var(--sans); font-size: 0.85rem; color: var(--text2); cursor: pointer; transition: all 0.15s; }
+.modal-close:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+.modal-dl { flex: 1; padding: 0.65rem; background: var(--accent); border: none; border-radius: 7px; font-family: var(--sans); font-size: 0.85rem; font-weight: 500; color: #fff; cursor: pointer; transition: background 0.15s; }
+.modal-dl:hover { background: var(--accent-hover); }
+
+/* TOAST */
+.toast { display: none; position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 600; background: var(--surface2); border: 0.5px solid var(--border2); color: var(--text); padding: 0.65rem 1.1rem; border-radius: 8px; font-size: 0.85rem; animation: fadeUp 0.2s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+.toast.show { display: block; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .steps-grid, .features-grid, .pricing-grid, .testi-grid { grid-template-columns: 1fr; }
+  .app-layout { grid-template-columns: 1fr; }
+  .sidebar { height: auto; max-height: 50vh; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo" onclick="showPage('landing')">Web<em>Mind</em></div>
+  <div class="nav-right">
+    <button class="nav-link" id="nl-home" onclick="showPage('landing')">Inicio</button>
+    <button class="nav-link" id="nl-app" onclick="showPage('app')">App</button>
+    <button class="nav-btn" onclick="showPage('app')">Crear web →</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════
+     LANDING
+══════════════════════════ -->
+<div id="page-landing" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow"><span></span>IA generativa · Sin código · En minutos</div>
+    <h1>Tu web profesional,<br><em>generada</em> al instante</h1>
+    <p class="hero-sub">Describe tu negocio en una frase. Nuestra IA crea, diseña y publica tu web completa en segundos.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="showPage('app')">Crear mi web gratis →</button>
+      <button class="btn-secondary" onclick="document.getElementById('como').scrollIntoView({behavior:'smooth'})">Ver cómo funciona</button>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <div class="social-proof">
+    <p>Usado por más de 2.000 negocios en España</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem">
+      <div class="avatars">
+        <div class="avatar" style="background:#7c6dfa;color:#fff">JR</div>
+        <div class="avatar" style="background:#4ade80;color:#000">ML</div>
+        <div class="avatar" style="background:#f472b6;color:#fff">AC</div>
+        <div class="avatar" style="background:#fb923c;color:#fff">PG</div>
+        <div class="avatar" style="background:#60a5fa;color:#fff">SR</div>
+      </div>
+      <span class="social-proof-text"><strong>+2.000</strong> webs generadas este mes</span>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="section" id="como">
+    <p class="section-label">Proceso</p>
+    <h2 class="section-title">Tres pasos.<br>Una web perfecta.</h2>
+    <p class="section-sub">Sin reuniones. Sin esperas. Sin conocimientos técnicos. Solo describe y listo.</p>
+    <div class="steps-grid">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-title">Describes tu negocio</div>
+        <p class="step-desc">Escribe una frase: qué haces, dónde estás, a quién te diriges. La IA hace el resto.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-title">La IA genera tu web</div>
+        <p class="step-desc">Diseño, textos, estructura y estilos adaptados a tu sector. Todo en segundos.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-title">Publicas con un clic</div>
+        <p class="step-desc">Tu web recibe una URL pública real. Lista para compartir con tus clientes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="section" style="padding-top:0">
+    <p class="section-label">Funcionalidades</p>
+    <h2 class="section-title">Todo lo que<br>necesita tu web.</h2>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">⚡</div><div class="feature-title">Generación instantánea</div><p class="feature-desc">De idea a web completa en menos de 60 segundos. Sin esperas, sin procesos complicados.</p></div>
+      <div class="feature-card"><div class="feature-icon">🎨</div><div class="feature-title">Diseño profesional</div><p class="feature-desc">Cada web tiene un diseño único adaptado al sector. Como si lo hubiera hecho una agencia.</p></div>
+      <div class="feature-card"><div class="feature-icon">📱</div><div class="feature-title">100% responsive</div><p class="feature-desc">Perfecta en móvil, tablet y escritorio. Google la indexará sin problemas.</p></div>
+      <div class="feature-card"><div class="feature-icon">🔗</div><div class="feature-title">URL pública real</div><p class="feature-desc">Cada web generada recibe una URL pública que puedes compartir al instante.</p></div>
+      <div class="feature-card"><div class="feature-icon">✍️</div><div class="feature-title">Copywriting persuasivo</div><p class="feature-desc">Textos escritos para convertir visitas en clientes. La IA conoce tu sector.</p></div>
+      <div class="feature-card"><div class="feature-icon">💾</div><div class="feature-title">Descarga el código</div><p class="feature-desc">Exporta el HTML completo. Tuyo para siempre, sin ataduras a plataformas.</p></div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="section" style="padding-top:0">
+    <p class="section-label">Precios</p>
+    <h2 class="section-title">Simple y transparente.</h2>
+    <p class="section-sub">Sin letra pequeña. Cancela cuando quieras.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">Starter</div>
+        <div class="price-amount">€29</div>
+        <div class="price-period">/ mes · facturación anual</div>
+        <ul class="price-features">
+          <li>5 webs al mes</li><li>URL pública</li><li>Descarga HTML</li><li>Soporte por email</li>
+        </ul>
+        <button class="price-btn" onclick="showPage('app')">Empezar →</button>
+      </div>
+      <div class="price-card popular">
+        <div class="popular-badge">Más popular</div>
+        <div class="price-name">Pro</div>
+        <div class="price-amount">€79</div>
+        <div class="price-period">/ mes · facturación anual</div>
+        <ul class="price-features">
+          <li>Webs ilimitadas</li><li>URL personalizada</li><li>SEO automático</li><li>Dominio incluido</li><li>Soporte prioritario</li>
+        </ul>
+        <button class="price-btn" onclick="showPage('app')">Empezar →</button>
+      </div>
+      <div class="price-card">
+        <div class="price-name">Agencia</div>
+        <div class="price-amount">€199</div>
+        <div class="price-period">/ mes · facturación anual</div>
+        <ul class="price-features">
+          <li>Todo en Pro</li><li>Marca blanca</li><li>API access</li><li>Gestor de cuenta</li>
+        </ul>
+        <button class="price-btn" onclick="showPage('app')">Hablar con ventas →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="section" style="padding-top:0">
+    <p class="section-label">Testimonios</p>
+    <h2 class="section-title">Lo que dicen<br>nuestros clientes.</h2>
+    <div class="testi-grid">
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"En 4 minutos tenía mi web de barbería lista. Mis clientes no pueden creer que no la haya hecho una agencia."</p><div class="testi-author"><div class="testi-avatar">JR</div><div><div class="testi-name">Javier Ruiz</div><div class="testi-biz">Barbería El Navajero, Madrid</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Antes pagaba 2.000€ por una web. Ahora genero webs para mis 8 restaurantes por 79€ al mes."</p><div class="testi-author"><div class="testi-avatar">ML</div><div><div class="testi-name">María López</div><div class="testi-biz">Grupo Gastronómico, Barcelona</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Uso el plan Agencia para mis clientes. Genero webs en minutos y cobro como si tardara semanas."</p><div class="testi-author"><div class="testi-avatar">AC</div><div><div class="testi-name">Ana Castillo</div><div class="testi-biz">Freelance Digital, Sevilla</div></div></div></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2 class="cta-title">¿Listo para empezar?</h2>
+    <p class="cta-sub">Únete a más de 2.000 negocios que ya usan WebMind AI.</p>
+    <button class="btn-primary" onclick="showPage('app')">Crear mi web gratis →</button>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Web<em>Mind</em> AI</div>
+    <div class="footer-links"><a href="#">Privacidad</a><a href="#">Términos</a><a href="#">Blog</a><a href="#">Contacto</a></div>
+    <div class="footer-copy">© 2025 WebMind AI</div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════
+     APP
+══════════════════════════ -->
+<div id="page-app" class="page">
+  <div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h2>Genera tu web</h2>
+        <p>Describe tu negocio y la IA hace el resto.</p>
+      </div>
+      <div class="sidebar-body">
+
+        <div>
+          <div class="field-label">Tu idea de negocio</div>
+          <textarea class="idea-textarea" id="idea-input" placeholder="Ej: Quiero una web para mi barbería clásica en Madrid, especializada en cortes modernos..."></textarea>
+        </div>
+
+        <div>
+          <div class="field-label">Ejemplos rápidos</div>
+          <div class="examples">
+            <button class="eg" onclick="setIdea(this.textContent)">🍕 Pizzería artesanal en Barcelona</button>
+            <button class="eg" onclick="setIdea(this.textContent)">✂️ Barbería clásica en Madrid</button>
+            <button class="eg" onclick="setIdea(this.textContent)">🧘 Estudio de yoga online</button>
+            <button class="eg" onclick="setIdea(this.textContent)">🦷 Clínica dental en Valencia</button>
+            <button class="eg" onclick="setIdea(this.textContent)">📸 Fotógrafo de bodas en Sevilla</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="field-label">Estilo visual</div>
+          <div class="style-grid">
+            <button class="style-opt sel" onclick="pickStyle(this)">⬛ Oscuro</button>
+            <button class="style-opt" onclick="pickStyle(this)">⬜ Claro</button>
+            <button class="style-opt" onclick="pickStyle(this)">🎨 Colorido</button>
+            <button class="style-opt" onclick="pickStyle(this)">💎 Minimalista</button>
+          </div>
+        </div>
+
+        <button class="gen-btn" id="gen-btn" onclick="generateWeb()">⚡ Generar web con IA</button>
+
+        <div class="status-bar">
+          <div class="status-dot" id="status-dot"></div>
+          <span id="mode-label">Conectando...</span>
+        </div>
+
+        <div id="history-section" style="display:none">
+          <div class="field-label">Historial</div>
+          <div class="history" id="history-list"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="preview">
+
+      <!-- PUBLIC URL BANNER -->
+      <div class="pub-banner" id="pub-banner">
+        <span class="pub-label">✓ Publicada</span>
+        <span class="pub-url" id="pub-url-text"></span>
+        <button class="pub-copy" onclick="copyPubUrl()">Copiar</button>
+      </div>
+
+      <!-- TOOLBAR -->
+      <div class="toolbar">
+        <div class="view-tabs">
+          <button class="view-tab active" onclick="setView('desktop',this)">Escritorio</button>
+          <button class="view-tab" onclick="setView('mobile',this)">Móvil</button>
+          <button class="view-tab" onclick="setView('code',this)">Código</button>
+        </div>
+        <div class="url-bar"><span>🔒</span><span id="url-text">webmind.ai — escribe tu idea y genera</span></div>
+        <button class="tb-btn outline" id="copy-btn" onclick="copyCode()" disabled>Copiar HTML</button>
+        <button class="tb-btn pub" id="pub-btn" onclick="openModal()" disabled>↗ Publicar</button>
+      </div>
+
+      <!-- IDLE -->
+      <div class="idle-state" id="idle-state">
+        <div class="idle-icon">⚡</div>
+        <div class="idle-title">Tu web aparecerá aquí</div>
+        <p class="idle-sub">Describe tu negocio en el panel izquierdo y pulsa generar.</p>
+      </div>
+
+      <!-- LOADING -->
+      <div class="loading-state" id="loading-state">
+        <div class="spinner"></div>
+        <div style="font-size:0.88rem;color:var(--text2)" id="load-title">Iniciando generación...</div>
+        <div class="loading-steps">
+          <div class="lstep" id="ls1"><div class="lstep-icon">1</div>Analizando tu negocio</div>
+          <div class="lstep" id="ls2"><div class="lstep-icon">2</div>Diseñando estructura</div>
+          <div class="lstep" id="ls3"><div class="lstep-icon">3</div>Escribiendo contenido</div>
+          <div class="lstep" id="ls4"><div class="lstep-icon">4</div>Aplicando estilos</div>
+          <div class="lstep" id="ls5"><div class="lstep-icon">5</div>Guardando y publicando</div>
+        </div>
+      </div>
+
+      <!-- DESKTOP FRAME -->
+      <div class="frame-wrap" id="frame-desktop">
+        <iframe id="preview-frame" title="Vista previa"></iframe>
+      </div>
+
+      <!-- MOBILE FRAME -->
+      <div class="mobile-wrap" id="frame-mobile">
+        <div class="mobile-shell">
+          <div class="mobile-notch"></div>
+          <iframe id="preview-frame-m" title="Móvil"></iframe>
+        </div>
+      </div>
+
+      <!-- CODE -->
+      <div class="code-wrap" id="code-view">
+        <pre id="code-pre"></pre>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h2>↗ Web publicada</h2>
+    <p>Tu web está guardada en el servidor y accesible desde esta URL pública.</p>
+    <div class="modal-url" id="modal-url"></div>
+    <div class="modal-actions">
+      <button class="modal-close" onclick="closeModal()">Cerrar</button>
+      <button class="modal-dl" onclick="downloadHTML()">⬇ Descargar HTML</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const BACKEND = 'http://localhost:3000';
+let generatedHTML = '';
+let publicUrl = '';
+let history = [];
+let isGenerating = false;
+let selectedStyle = 'Oscuro';
+
+// ── PAGE NAV ──
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.getElementById('page-' + p).classList.add('active');
+  document.getElementById('nl-home').classList.toggle('active', p === 'landing');
+  document.getElementById('nl-app').classList.toggle('active', p === 'app');
+  window.scrollTo(0, 0);
+}
+
+// ── STYLE ──
+function pickStyle(el) {
+  document.querySelectorAll('.style-opt').forEach(o => o.classList.remove('sel'));
+  el.classList.add('sel');
+  selectedStyle = el.textContent.trim().replace(/^\S+\s/, '');
+}
+
+function setIdea(txt) {
+  document.getElementById('idea-input').value = txt;
+  document.getElementById('idea-input').focus();
+}
+
+// ── VIEW MODE ──
+let currentView = 'desktop';
+function setView(v, btn) {
+  document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  currentView = v;
+  document.getElementById('frame-desktop').classList.toggle('show', v === 'desktop');
+  document.getElementById('frame-mobile').classList.toggle('show', v === 'mobile');
+  document.getElementById('code-view').classList.toggle('show', v === 'code');
+  if (v === 'mobile' && generatedHTML) document.getElementById('preview-frame-m').srcdoc = generatedHTML;
+}
+
+// ── BACKEND CHECK ──
+async function checkBackend() {
+  try {
+    const r = await fetch(BACKEND + '/', { signal: AbortSignal.timeout(3000) });
+    if (r.ok) {
+      setStatus(true, '🟢 Backend activo — API key segura');
+    } else throw new Error();
+  } catch {
+    setStatus(false, '🔴 Backend offline — arranca node server.js');
+  }
+}
+
+function setStatus(ok, msg) {
+  const dot = document.getElementById('status-dot');
+  dot.className = 'status-dot ' + (ok ? 'online' : 'offline');
+  document.getElementById('mode-label').textContent = msg;
+}
+
+// ── GENERATE ──
+async function generateWeb() {
+  if (isGenerating) return;
+  const idea = document.getElementById('idea-input').value.trim();
+  if (!idea) { toast('✏️ Escribe la idea de tu negocio'); return; }
+
+  isGenerating = true;
+  generatedHTML = ''; publicUrl = '';
+
+  // Reset UI
+  document.getElementById('idle-state').style.display = 'none';
+  document.getElementById('frame-desktop').classList.remove('show');
+  document.getElementById('frame-mobile').classList.remove('show');
+  document.getElementById('code-view').classList.remove('show');
+  document.getElementById('pub-banner').classList.remove('show');
+  document.getElementById('loading-state').classList.add('show');
+  document.getElementById('gen-btn').disabled = true;
+  document.getElementById('copy-btn').disabled = true;
+  document.getElementById('pub-btn').disabled = true;
+
+  // Animate steps
+  const steps = ['ls1','ls2','ls3','ls4','ls5'];
+  const titles = ['Analizando tu negocio...','Diseñando estructura...','Escribiendo contenido...','Aplicando estilos...','Guardando y publicando...'];
+  steps.forEach(id => { const el = document.getElementById(id); el.classList.remove('done','active'); });
+
+  let si = 0;
+  function next() {
+    if (si > 0) document.getElementById(steps[si-1]).classList.replace('active','done');
+    if (si < steps.length) {
+      document.getElementById(steps[si]).classList.add('active');
+      document.getElementById('load-title').textContent = titles[si];
+      si++;
+    }
+  }
+  next();
+  const timer = setInterval(next, 2000);
+
+  try {
+    const res = await fetch(BACKEND + '/api/generate-web', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idea, style: selectedStyle }),
+      signal: AbortSignal.timeout(120000)
+    });
+
+    if (!res.ok) { const e = await res.json().catch(()=>{}); throw new Error(e?.error || 'Error del servidor'); }
+    const data = await res.json();
+
+    clearInterval(timer);
+    steps.forEach(id => { document.getElementById(id).classList.remove('active'); document.getElementById(id).classList.add('done'); });
+    await new Promise(r => setTimeout(r, 300));
+
+    generatedHTML = data.html;
+    publicUrl = data.publicUrl || '';
+
+    // Show preview
+    document.getElementById('loading-state').classList.remove('show');
+    document.getElementById('frame-desktop').classList.add('show');
+    document.getElementById('preview-frame').srcdoc = generatedHTML;
+    document.getElementById('code-pre').textContent = generatedHTML;
+
+    // URL bar
+    const slug = idea.toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,28);
+    document.getElementById('url-text').textContent = publicUrl || `localhost:3000/sites/${slug}`;
+
+    // Public URL banner
+    if (publicUrl) {
+      document.getElementById('pub-url-text').textContent = publicUrl;
+      document.getElementById('pub-banner').classList.add('show');
+      document.getElementById('modal-url').textContent = publicUrl;
+    }
+
+    document.getElementById('copy-btn').disabled = false;
+    document.getElementById('pub-btn').disabled = false;
+
+    addHistory(idea);
+    toast('✅ Web generada y publicada');
+
+  } catch (err) {
+    clearInterval(timer);
+    document.getElementById('loading-state').classList.remove('show');
+    document.getElementById('idle-state').style.display = 'flex';
+    toast('❌ ' + (err.message || 'Error al generar'));
+    setStatus(false, '🔴 Error — revisa la terminal de Node');
+    console.error(err);
+  }
+
+  isGenerating = false;
+  document.getElementById('gen-btn').disabled = false;
+}
+
+// ── HISTORY ──
+function addHistory(idea) {
+  history.unshift(idea);
+  if (history.length > 5) history.pop();
+  const sec = document.getElementById('history-section');
+  const list = document.getElementById('history-list');
+  sec.style.display = 'block';
+  list.innerHTML = history.map((h,i) =>
+    `<div class="history-item" onclick="document.getElementById('idea-input').value='${h.replace(/'/g,"\\'")}'">`+
+    `<div class="history-dot"></div><div class="history-text">${h}</div></div>`
+  ).join('');
+}
+
+// ── COPY / DOWNLOAD ──
+function copyCode() {
+  if (!generatedHTML) return;
+  navigator.clipboard.writeText(generatedHTML).then(() => toast('📋 Código copiado'));
+}
+function copyPubUrl() {
+  if (!publicUrl) return;
+  navigator.clipboard.writeText(publicUrl).then(() => toast('🔗 URL copiada'));
+}
+function downloadHTML() {
+  if (!generatedHTML) return;
+  const idea = document.getElementById('idea-input').value.trim();
+  const slug = idea.toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,28);
+  const blob = new Blob([generatedHTML], { type: 'text/html' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `webmind-${slug}.html`; a.click();
+  toast('⬇ Descargado');
+}
+
+// ── MODAL ──
+function openModal() { if (generatedHTML) document.getElementById('modal').classList.add('show'); }
+function closeModal() { document.getElementById('modal').classList.remove('show'); }
+
+// ── TOAST ──
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ── INIT ──
+window.addEventListener('DOMContentLoaded', checkBackend);
+</script>
+</body>
+</html>
